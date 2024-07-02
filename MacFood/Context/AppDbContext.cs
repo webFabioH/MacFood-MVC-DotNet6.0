@@ -11,5 +11,6 @@ namespace MacFood.Context
 
         public DbSet<Category> Categories { get; set; }
         public DbSet<Food> Foods { get; set; }
+        public DbSet<PurchaseCartItem> PurchaseCartItems { get; set; }
     }
 }
