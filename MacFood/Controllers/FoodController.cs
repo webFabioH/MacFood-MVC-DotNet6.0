@@ -1,4 +1,5 @@
 ﻿using MacFood.Repositories.Interfaces;
+using MacFood.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MacFood.Controllers
@@ -14,9 +15,14 @@ namespace MacFood.Controllers
 
         public IActionResult List()
         {
-            var foods = _foodRepository.Foods;
-            var totalFoods = foods.Count();
-            return View(foods);
+            //var foods = _foodRepository.Foods;
+            //var totalFoods = foods.Count();
+            //return View(foods);
+            var foodListViewModel = new FoodListViewModel();
+            foodListViewModel.Foods = _foodRepository.Foods;
+            foodListViewModel.CurrentCategory = "Current Category";
+
+            return View(foodListViewModel);
         }
     }
 }
