@@ -15,6 +15,7 @@ namespace MacFood.Controllers
         public IActionResult List()
         {
             var foods = _foodRepository.Foods;
+            var totalFoods = foods.Count();
             return View(foods);
         }
     }
