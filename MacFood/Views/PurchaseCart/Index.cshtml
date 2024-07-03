@@ -1,0 +1,61 @@
+﻿@model PurchaseCartViewModel
+
+<div class="container">
+    <div class="row">
+        <img src="~/images/Full-Cart-icon.png" />
+        <div>
+            <h4>Your puchase cart</h4>
+        </div>
+
+        <table class="table table-bordered table-striped">
+
+            <thead>
+                <tr>
+                    <th>Quantity</th>
+                    <th>Food</th>
+                    <th class ="text-rigth">Price</th>
+                    <th class="text-right">Subtotal</th>
+                    <th></th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach(var item in Model.PurchaseCart.PurchaseCartItem)
+                {
+                    <tr>
+                        <td class="text-center">@item.Quantity</td>
+                        <td class="text-center">@item.Food.FoodName</td>
+                        <td class="text-center">@item.Food.Value.ToString("c")</td>
+
+                        <td class="text-right">
+                            @((item.Quantity * item.Food.Value).ToString("c"))
+                        </td>
+
+                        <td class="text-center">
+                            <a asp-controller="PurchaseCart" asp-action="RemoveToPurchaseCart" 
+                            asp-route-foodId="@item.Food.FoodId"></a><img src="~/images/delete.png"/>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+
+            <tfoot>
+                <tr>
+                    <td colspan="3" class="text-right">Total:</td>
+                    <td class="text-right">
+                        @Model.PurchaseCartTotal.ToString("c")
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+
+        <div class="text-right">
+            <div class="btn-group">
+                <a class="btn btn-success" asp-controller="Order" asp-action="Checkout">Finish Order</a>
+                &nbsp;&nbsp;&nbsp;
+                <a class="btn btn-primary" asp-controller="Food" asp-action="List">Continue</a>
+            </div>
+        </div>
+        <br />
+    </div>
+</div>
