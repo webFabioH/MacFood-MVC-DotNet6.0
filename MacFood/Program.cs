@@ -1,4 +1,5 @@
 using MacFood.Context;
+using MacFood.Models;
 using MacFood.Repositories;
 using MacFood.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -13,6 +14,7 @@ builder.Services.AddDbContextPool<AppDbContext>(options => options.UseMySql(mySq
 builder.Services.AddTransient<IFoodRepository, FoodRepository>();
 builder.Services.AddTransient<ICategoryRepository, CategoryRepository>();
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+builder.Services.AddScoped(sp => PurchaseCart.GetCart(sp));
 
 builder.Services.AddControllersWithViews();
 

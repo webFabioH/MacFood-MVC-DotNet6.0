@@ -81,7 +81,7 @@ namespace MacFood.Models
             return localQuantity;
         }
 
-        public List<PurchaseCartItem> GetPurchaseCartItems() 
+        public List<PurchaseCartItem> GetPurchaseCartItens() 
         {
             return PurchaseCartItem ?? (PurchaseCartItem =
                                         _context.PurchaseCartItems
