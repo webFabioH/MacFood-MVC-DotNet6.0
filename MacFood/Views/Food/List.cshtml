@@ -1,12 +1,13 @@
 ﻿@model FoodListViewModel;
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+<div>
+    <h2>@Model.CurrentCategory</h2>
+</div>
 
 
 <div class="container">
     <div class="row">
+        <h1></h1>
         @foreach (var food in Model.Foods)
         {
             <partial name="_SummaryFoods" for="@food" />
