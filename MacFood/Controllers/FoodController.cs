@@ -26,7 +26,7 @@ namespace MacFood.Controllers
             }
             else
             {
-                if(string.Equals("Normal", category, StringComparison.OrdinalIgnoreCase))
+                if(string.Equals("FastFood", category, StringComparison.OrdinalIgnoreCase))
                 {
                     foods = _foodRepository.Foods.Where(f => f.Category.CategoryName.Equals("FastFood"))
                         .OrderBy(f => f.FoodName);
