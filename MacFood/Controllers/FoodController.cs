@@ -26,16 +26,21 @@ namespace MacFood.Controllers
             }
             else
             {
-                if(string.Equals("FastFood", category, StringComparison.OrdinalIgnoreCase))
-                {
-                    foods = _foodRepository.Foods.Where(f => f.Category.CategoryName.Equals("FastFood"))
-                        .OrderBy(f => f.FoodName);
-                }
-                else
-                {
-                    foods = _foodRepository.Foods.Where(f => f.Category.CategoryName.Equals("FitFood"))
-                        .OrderBy(f => f.FoodName);
-                }
+                //if(string.Equals("FastFood", category, StringComparison.OrdinalIgnoreCase))
+                //{
+                //    foods = _foodRepository.Foods.Where(f => f.Category.CategoryName.Equals("FastFood"))
+                //        .OrderBy(f => f.FoodName);
+                //}
+                //else
+                //{
+                //    foods = _foodRepository.Foods.Where(f => f.Category.CategoryName.Equals("FitFood"))
+                //        .OrderBy(f => f.FoodName);
+                //}
+
+                foods = _foodRepository.Foods
+                    .Where(f => f.Category.CategoryName.Equals(category))
+                    .OrderBy(f => f.FoodName);
+
                 currentCategory = category;
             }
 
@@ -46,6 +51,12 @@ namespace MacFood.Controllers
             };
 
             return View(foodListViewModel);
+        }
+
+        public IActionResult Details(int foodId) 
+        {
+            var food = _foodRepository.Foods.FirstOrDefault(f => f.FoodId == foodId);
+            return View(food);
         }
     }
 }
