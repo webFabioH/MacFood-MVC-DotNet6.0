@@ -1,6 +1,9 @@
 ﻿using MacFood.Context;
 using Microsoft.EntityFrameworkCore;
 
+
+// TODO Refazer a tela de compra de item
+
 namespace MacFood.Models
 {
     public class PurchaseCart

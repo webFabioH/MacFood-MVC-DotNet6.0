@@ -31,7 +31,7 @@ namespace MacFood.Controllers
             return View(purchaseCartVM);
         }
 
-        public IActionResult AddToPurchaseCart(int foodId)
+        public RedirectToActionResult c(int foodId)
         {
             var SelectedFood = _foodRepository.Foods.FirstOrDefault(s => s.FoodId == foodId);
             if (SelectedFood != null)
@@ -41,7 +41,7 @@ namespace MacFood.Controllers
             return RedirectToAction("Index");
         }
 
-        public IActionResult RemoveToPurchaseCart(int foodId)
+        public RedirectToActionResult RemoveToPurchaseCart(int foodId)
         {
             var SelectedFood = _foodRepository.Foods.FirstOrDefault(s => s.FoodId == foodId);
             if (SelectedFood != null)
