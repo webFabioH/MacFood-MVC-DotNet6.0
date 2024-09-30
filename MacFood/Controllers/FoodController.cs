@@ -58,5 +58,36 @@ namespace MacFood.Controllers
             var food = _foodRepository.Foods.FirstOrDefault(f => f.FoodId == foodId);
             return View(food);
         }
+
+        public ViewResult Search(string searchstring)
+        {
+            IEnumerable<Food> foods;
+            string currentCategory = string.Empty;
+
+            if (string.IsNullOrEmpty(searchstring))
+            {
+                foods = _foodRepository.Foods.OrderBy(p => p.FoodId);
+                currentCategory = "All foods";
+            }
+            else
+            {
+                foods = _foodRepository.Foods.Where(p => p.FoodName.ToLower().Contains(searchstring.ToLower()));
+
+                if (foods.Any())
+                {
+                    currentCategory = "Foods";
+                }
+                else
+                {
+                    currentCategory = "No food found";
+                }
+            }
+
+            return View("~/Views/Food/List.cshtml", new FoodListViewModel
+            {
+                Foods = foods,
+                CurrentCategory = currentCategory
+            });
+        }
     }
 }

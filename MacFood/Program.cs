@@ -13,6 +13,7 @@ builder.Services.AddDbContextPool<AppDbContext>(options => options.UseMySql(mySq
 
 builder.Services.AddTransient<IFoodRepository, FoodRepository>();
 builder.Services.AddTransient<ICategoryRepository, CategoryRepository>();
+builder.Services.AddTransient<IOrderRepository, OrderRepository>();
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddScoped(sp => PurchaseCart.GetCart(sp));
 
