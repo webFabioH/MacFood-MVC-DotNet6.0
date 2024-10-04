@@ -50,6 +50,11 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(
+  name: "areas",
+  pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+);
+
+app.MapControllerRoute(
     name: "filterCategory",
     pattern: "Food/{action}/{category?}",
     defaults: new { Controller = "Food", Action = "List" });
