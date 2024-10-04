@@ -2,6 +2,7 @@
 using MacFood.Repositories;
 using MacFood.Repositories.Interfaces;
 using MacFood.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MacFood.Controllers
@@ -31,7 +32,8 @@ namespace MacFood.Controllers
             return View(purchaseCartVM);
         }
 
-        public RedirectToActionResult c(int foodId)
+        [Authorize]
+        public RedirectToActionResult AddToPurchaseCart(int foodId)
         {
             var SelectedFood = _foodRepository.Foods.FirstOrDefault(s => s.FoodId == foodId);
             if (SelectedFood != null)
@@ -41,6 +43,7 @@ namespace MacFood.Controllers
             return RedirectToAction("Index");
         }
 
+        [Authorize]
         public RedirectToActionResult RemoveToPurchaseCart(int foodId)
         {
             var SelectedFood = _foodRepository.Foods.FirstOrDefault(s => s.FoodId == foodId);

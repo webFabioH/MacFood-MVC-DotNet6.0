@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MacFood.Repositories.Interfaces;
 using MacFood.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace MacFood.Controllers
 {
@@ -15,11 +16,13 @@ namespace MacFood.Controllers
             _purchaseCart = purchaseCart;
         }
 
-        public  IActionResult Checkpout()
+        [Authorize]
+        public  IActionResult Checkout()
         {
             return View();
         }
 
+        [Authorize]
         [HttpPost]
         public IActionResult Checkout(Order order)
         {
