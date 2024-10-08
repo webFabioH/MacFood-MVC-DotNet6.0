@@ -1,8 +1,10 @@
+using FluentAssertions;
 using FluentAssertions.Common;
 using MacFood.Context;
 using MacFood.Models;
 using MacFood.Repositories;
 using MacFood.Repositories.Interfaces;
+using MacFood.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -20,6 +22,16 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>()
 builder.Services.AddTransient<IFoodRepository, FoodRepository>();
 builder.Services.AddTransient<ICategoryRepository, CategoryRepository>();
 builder.Services.AddTransient<IOrderRepository, OrderRepository>();
+builder.Services.AddScoped<ISeedUserRoleInitial, SeedUserRoleInitial>();
+
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("Admin", politic =>
+    {
+        politic.RequireRole("Admin");
+    });
+});
+
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddScoped(sp => PurchaseCart.GetCart(sp));
 
@@ -42,6 +54,13 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+
+using (var scope = app.Services.CreateScope())
+{
+    var seedUserRoleInitial = scope.ServiceProvider.GetRequiredService<ISeedUserRoleInitial>();
+    seedUserRoleInitial.SeedRoles();
+    seedUserRoleInitial.SeedUsers();
+}
 
 app.UseSession();
 
